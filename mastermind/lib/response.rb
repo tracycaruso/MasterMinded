@@ -1,3 +1,5 @@
+require_relative 'output_generator'
+
 class Response
   attr_reader :message, :status
 
@@ -6,7 +8,7 @@ class Response
     @status  = inputs[:status]
   end
 
-  def start_game
+  def starting_message
     "Start"
   end
 

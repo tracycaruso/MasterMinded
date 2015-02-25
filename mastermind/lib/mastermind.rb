@@ -1,6 +1,14 @@
 require_relative 'response'
+require_relative 'output_generator'
 
 class Mastermind
+  attr_reader :og
+
+  def initialize
+    @og = OutputGenerator.new
+  end
+
+
   def execute(input)
     secret = "BBGB"
     if input == secret
@@ -12,6 +20,9 @@ class Mastermind
 
 
   def start_game
-    "Start"
+    og.start_message
   end
 end
+
+test = Mastermind.new
+test.start_game

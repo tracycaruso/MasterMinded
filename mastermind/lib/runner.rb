@@ -1,18 +1,31 @@
-require './lib/mastermind'
+# runner = Runs Commands
+# mastermind.rb = Business Logic
+# response.rb = Decides if game should run or not
+# output_generator.rb = Stores output
+
+
+require './mastermind'
 
 class Runner
   def run
     puts "Welcome to Mastermind"
 
     mastermind = Mastermind.new
-    response = nil
+    mastermind.start_game
 
-    until response && response.status == :won
-      print "> "
-      input = gets.chomp
-      response = mastermind.execute(input)
-      puts response.message
-    end
-    puts "Goodbye!"
+
+    response = nil
+    #
+    # until response && response.status == :won
+    #   print "> "
+    #   input = gets.chomp
+    #   response = mastermind.execute(input)
+    #   puts response.message
+    # end
+    # puts "Goodbye!"
   end
 end
+
+
+game = Runner.new
+game.run
