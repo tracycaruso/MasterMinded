@@ -38,10 +38,18 @@ class MastermindTest < Minitest::Test
   end
 
   def test_game_starts_when_player_chooses_p_or_play
-    assert_equal "play", master_mind.eval_menu_selection("p")
+    assert_equal :play, master_mind.eval_menu_selection("p")
+    assert_equal :play, master_mind.eval_menu_selection("play")
   end
 
   def test_game_prints_instructions_when_player_chooses_i_or_instructions
+    assert_equal :instructions, master_mind.eval_menu_selection("i")
+    assert_equal :instructions, master_mind.eval_menu_selection("instructions")
+  end
+
+  def test_game_prints_instructions_when_player_chooses_q_or_quit
+    assert_equal :quit, master_mind.eval_menu_selection("q")
+    assert_equal :quit, master_mind.eval_menu_selection("quit")
   end
 
   def test

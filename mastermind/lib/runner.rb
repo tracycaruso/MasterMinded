@@ -11,6 +11,7 @@ class Runner
     mastermind = Mastermind.new
     mastermind.start_game
 
+
     # response = nil
     # until response && response.status == :won
     #    print "> "

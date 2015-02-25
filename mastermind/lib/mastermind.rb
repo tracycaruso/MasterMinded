@@ -24,12 +24,25 @@ class Mastermind
   def start_game
     og.start_message
     player_choice = ip.player_menu_selection
-    eval_menu_selection("p")
+    eval_menu_selection(player_choice)
   end
 
   def eval_menu_selection(selection)
-    if selection == "play" || "p"
-      puts "play"
+
+    case selection
+    when "p", "play"
+      :play
+    when "i", "instructions"
+      :instructions
+    when "q", "quit"
+      :quit
     end
+
   end
+
+  # def quit
+  #   abort("GAME OVER :( :( :( ")
+  # end
+
+
 end
