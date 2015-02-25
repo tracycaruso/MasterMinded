@@ -80,19 +80,20 @@ class MastermindTest < Minitest::Test
   end
 
   def test_it_makes_sure_guess_is_valid
-    assert master_mind.valid_guess?
+    assert master_mind.valid_guess?("GYBR")
   end
 
   def test_guess_is_the_right_length
-    assert master_mind.guess_four_chars?
+    assert master_mind.guess_four_chars?("GYBR")
+    refute master_mind.guess_four_chars?("GHDJF")
   end
 
   def test_guess_is_only_allowed_characters
-    assert master_mind.guess_allowed_chars?
+    assert master_mind.guess_allowed_chars?("GYBR")
   end
 
-  def test
-  skip
+  def test_it_gives_cheat_code
+    assert_equal "BBGB", master_mind.cheat("BBGB")
   end
 
   def test

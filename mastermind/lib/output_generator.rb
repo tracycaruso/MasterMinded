@@ -17,4 +17,8 @@ What's your guess?
     puts "These are detailed instructions"
   end
 
+  def invalid_guess
+    puts "NOT VALID"
+  end
+
 end

@@ -13,10 +13,21 @@ class Mastermind
 
   def execute(input)
     secret = "BBGB"
-    if input == secret
-      Response.new(:message => "You Win!", :status => :won)
-    else
-      Response.new(:message => "Guess again!", :status => :continue)
+    #
+    # if input == "CHEAT" || "C"
+    #   cheat(secret)
+    # else
+    #   if !valid_guess?(input)
+    #     og.invalid_guess
+    #   end
+    # end
+
+
+
+     if input == secret
+       Response.new(:message => "You Win!", :status => :won)
+     else
+       Response.new(:message => "Guess again!", :status => :continue)
     end
   end
 
@@ -45,7 +56,7 @@ class Mastermind
   end
 
   def generate_code
-    secret = ["r", "b", "y", "g"]
+    secret = ["R", "B", "Y", "G"]
     secret = secret.sample(4)
   end
 
@@ -57,16 +68,21 @@ class Mastermind
     #abort("GAME OVER :( :( :( ")
   end
 
-  def valid_guess?
-    guess_four_chars? && guess_allowed_chars?
+  def valid_guess?(guess)
+    guess_four_chars?(guess) && guess_allowed_chars?(guess)
   end
 
-  def guess_four_chars?
+  def guess_four_chars?(guess)
+    guess.length == 4
+  end
+
+  def guess_allowed_chars?(guess)
+    #if not G || Y || B || R fail
     true
   end
 
-  def guess_allowed_chars?
-    true
+  def cheat(secret)
+    "BBGB"
   end
 
 

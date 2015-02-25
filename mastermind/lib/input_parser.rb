@@ -5,5 +5,7 @@ class InputParser
     gets.chomp.downcase
   end
 
+  
+
 
 end
