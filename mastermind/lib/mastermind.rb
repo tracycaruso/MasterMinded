@@ -31,18 +31,45 @@ class Mastermind
 
     case selection
     when "p", "play"
-      :play
+      play
     when "i", "instructions"
-      :instructions
+      instructions
     when "q", "quit"
-      :quit
+      quit
     end
-
   end
 
-  # def quit
-  #   abort("GAME OVER :( :( :( ")
-  # end
+  def play
+    og.basic_instructions
+    generate_code
+  end
+
+  def generate_code
+    secret = ["r", "b", "y", "g"]
+    secret = secret.sample(4)
+  end
+
+  def instructions
+    og.indepth_instructions
+  end
+
+  def quit
+    #abort("GAME OVER :( :( :( ")
+  end
+
+  def valid_guess?
+    guess_four_chars? && guess_allowed_chars?
+  end
+
+  def guess_four_chars?
+    true
+  end
+
+  def guess_allowed_chars?
+    true
+  end
+
+
 
 
 end

@@ -10,16 +10,14 @@ class Runner
   def run
     mastermind = Mastermind.new
     mastermind.start_game
-
-
-    # response = nil
-    # until response && response.status == :won
-    #    print "> "
-    #    input = gets.chomp
-    #    response = mastermind.execute(input)
-    #    puts response.message
-    #  end
-    #  puts "Goodbye!"
+    response = nil
+    until response && response.status == :won
+       print "> "
+       input = gets.chomp
+       response = mastermind.execute(input)
+       puts response.message
+     end
+     puts "Goodbye!"
   end
 end
 
