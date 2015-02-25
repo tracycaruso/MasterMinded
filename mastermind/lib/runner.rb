@@ -8,21 +8,17 @@ require './mastermind'
 
 class Runner
   def run
-    puts "Welcome to Mastermind"
-
     mastermind = Mastermind.new
     mastermind.start_game
 
-
-    response = nil
-    #
+    # response = nil
     # until response && response.status == :won
-    #   print "> "
-    #   input = gets.chomp
-    #   response = mastermind.execute(input)
-    #   puts response.message
-    # end
-    # puts "Goodbye!"
+    #    print "> "
+    #    input = gets.chomp
+    #    response = mastermind.execute(input)
+    #    puts response.message
+    #  end
+    #  puts "Goodbye!"
   end
 end
 
