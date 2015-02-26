@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'minitest/mock'
 require_relative '../lib/mastermind'
 
 class MastermindTest < Minitest::Test
-
   attr_reader :master_mind, :output_gen, :input_pars
 
   def setup
@@ -16,20 +16,12 @@ class MastermindTest < Minitest::Test
     assert MastermindTest
   end
 
-  def test_it_responds_to_start_squence
-    assert master_mind.respond_to?(:start_game)
-  end
-
   def test_it_plays_start_message
     assert output_gen.respond_to?(:start_message)
   end
 
   def test_it_checks_if_player_wants_to_play
     assert input_pars.respond_to?(:player_input)
-  end
-
-  def test_it_evaluates_player_menu_selection
-    assert master_mind.respond_to?(:eval_menu_selection)
   end
 
   def test_game_starts_when_player_chooses_p_or_play
@@ -48,10 +40,6 @@ class MastermindTest < Minitest::Test
     skip
     assert_equal :quit, master_mind.eval_menu_selection("q")
     assert_equal :quit, master_mind.eval_menu_selection("quit")
-  end
-
-  def test_it_responds_to_play
-    assert master_mind.respond_to?(:play)
   end
 
   def test_it_prints_basic_instructions
@@ -92,48 +80,36 @@ class MastermindTest < Minitest::Test
     assert master_mind.guess_allowed_chars?("GYBR")
   end
 
+  def test_evaluates_guess
+   assert master_mind.guess_validator("BBBB")
+   refute master_mind.guess_validator("BBBBB")
+  end
+
   def test_it_gives_cheat_code
     assert_equal "BBGB", master_mind.cheat(["B", "B", "G", "B"])
   end
 
-
   def test_compares_positions
-    skip
-    secret = "BBBB"
-    assert_equal "2 in the correct positions", master_mind.compare_positions("RRBB")
+    #compare_positions(player_input, game_secret)
+    assert_equal "1 in the correct positions", master_mind.compare_positions("RRRB", "BBBB")
+    assert_equal "2 in the correct positions", master_mind.compare_positions("RRBB", "BBBB")
+    assert_equal "3 in the correct positions", master_mind.compare_positions("RBBB", "BBBB")
+    assert_equal "4 in the correct positions", master_mind.compare_positions("BBBB", "BBBB")
   end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-  #
-  # def test
-  # skip
-  # end
-
-
 end
+#
+# class MastermindStubTest < Minitest::Mock
+#   attr_reader :master_mind, :output_gen, :input_pars
+#
+#   def setup
+#     @master_mind = Mastermind.new
+#     @output_gen = OutputGenerator.new
+#     @input_pars = InputParser.new
+#   end
+#
+#   def test_compares_positions
+#     skip
+#     @mock.expect(:secret, "BBBB")
+#     assert_equal "2 in the correct positions", master_mind.compare_positions("RRBB")
+#   end
+# end
