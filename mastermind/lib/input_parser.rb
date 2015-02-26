@@ -1,11 +1,11 @@
 class InputParser
 
-  def player_menu_selection
+  def player_input
     print ">"
-    gets.chomp.downcase
+    gets.chomp.upcase
   end
 
-  
+
 
 
 end

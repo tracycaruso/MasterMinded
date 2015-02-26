@@ -25,7 +25,7 @@ class MastermindTest < Minitest::Test
   end
 
   def test_it_checks_if_player_wants_to_play
-    assert input_pars.respond_to?(:player_menu_selection)
+    assert input_pars.respond_to?(:player_input)
   end
 
   def test_it_evaluates_player_menu_selection
@@ -74,10 +74,10 @@ class MastermindTest < Minitest::Test
     assert master_mind.respond_to?(:execute)
   end
 
-  def test_it_wins
-    result = master_mind.execute("BBGB")
-    assert result.message.downcase.include?("win")
-  end
+  # def test_it_wins
+  #   result = master_mind.execute("BBGB")
+  #   assert result.message.downcase.include?("win")
+  # end
 
   def test_it_makes_sure_guess_is_valid
     assert master_mind.valid_guess?("GYBR")
@@ -93,42 +93,47 @@ class MastermindTest < Minitest::Test
   end
 
   def test_it_gives_cheat_code
-    assert_equal "BBGB", master_mind.cheat("BBGB")
+    assert_equal "BBGB", master_mind.cheat(["B", "B", "G", "B"])
   end
 
-  def test
-  skip
-  end
 
-  def test
-  skip
+  def test_compares_positions
+    skip
+    secret = "BBBB"
+    assert_equal "2 in the correct positions", master_mind.compare_positions("RRBB")
   end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
+  #
+  # def test
+  # skip
+  # end
 
-  def test
-  skip
-  end
 
-  def test
-  skip
-  end
-
-  def test
-  skip
-  end
-
-  def test
-  skip
-  end
-
-  def test
-  skip
-  end
-
-  def test
-  skip
-  end
-
-  def test
-  skip
-  end
 end

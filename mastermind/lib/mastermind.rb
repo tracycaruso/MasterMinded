@@ -11,30 +11,9 @@ class Mastermind
   end
 
 
-  def execute(input)
-    secret = "BBGB"
-    #
-    # if input == "CHEAT" || "C"
-    #   cheat(secret)
-    # else
-    #   if !valid_guess?(input)
-    #     og.invalid_guess
-    #   end
-    # end
-
-
-
-     if input == secret
-       Response.new(:message => "You Win!", :status => :won)
-     else
-       Response.new(:message => "Guess again!", :status => :continue)
-    end
-  end
-
-
   def start_game
     og.start_message
-    player_choice = ip.player_menu_selection
+    player_choice = ip.player_input
     eval_menu_selection(player_choice)
   end
 
@@ -52,12 +31,23 @@ class Mastermind
 
   def play
     og.basic_instructions
-    generate_code
+  end
+
+  def execute
+
+    secret = generate_code
+    guess_validator(secret)
+
+    #  if input == secret
+    #    Response.new(:message => "You Win!", :status => :won)
+    #  else
+    #    Response.new(:message => "Guess again!", :status =>  df  :continue)
+    # end
   end
 
   def generate_code
     secret = ["R", "B", "Y", "G"]
-    secret = secret.sample(4)
+    secret.sample(4)
   end
 
   def instructions
@@ -66,6 +56,26 @@ class Mastermind
 
   def quit
     #abort("GAME OVER :( :( :( ")
+  end
+
+  def guess_validator(secret)
+    guess_valid = false
+    while guess_valid == false
+      guess = ip.player_input
+        if guess == "CHEAT"
+          cheat(secret)
+          guess_valid = true
+        elsif !valid_guess?(input)
+          puts "invalid guess"
+          guess_valid = false
+        else
+          guess_valid = true
+          find_matches(input)
+        end
+    end
+  end
+
+  def find_matches()
   end
 
   def valid_guess?(guess)
@@ -82,7 +92,7 @@ class Mastermind
   end
 
   def cheat(secret)
-    "BBGB"
+    secret.join.to_s
   end
 
 
