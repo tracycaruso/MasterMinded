@@ -59,24 +59,16 @@ class Mastermind
   #SECRETEVALUATOR###################################
 
   def compare_positions(inputs)
-    puts inputs
-    puts @secret_code
-    @positions = 0
-    code = @secret_code
-    match = 0
-    inputs.each_with_index do |n, index|
-      if code[index] == inputs[index]
-        @positions +=1
-      end
-    end
-    puts "positions : #{@positions}"
-    @positions
+    secret = @secret_code.dup
+    inputs, secret = [inputs, secret].map!{|ar| ar.zip([0,1,2,3])}
+    @positions = (inputs & secret).length
+    puts "positions: #{@positions}"
   end
 
 
   def compare_colors(inputs)
      count = 0
-     secret = @secret_code
+     secret = @secret_code.dup
      inputs.each do |i|
        if secret.include? i
          match = secret.find_index(i)

@@ -6,6 +6,7 @@
 
 # runner, printer,  mastermind: code gen, guess validator, guess evaluator
 
+# left to implement : Timer, Score Count, Break out of evaluation
 
 require './mastermind'
 
@@ -15,13 +16,16 @@ class Runner
     output_generator = OutputGenerator.new
 
     #START###########################################
+    secret = mastermind.generate_code
     output_generator.start_message
     print ">"
     menu_selection = gets.chomp.upcase
 
 
     #PLAY############################################
-    if menu_selection == "p" || "play"
+
+    unless menu_selection == "q" || "quit"
+      if menu_selection == "p" || "play"
       output_generator.basic_instructions
 
       response = nil
@@ -50,9 +54,8 @@ class Runner
         # response = mastermind.execute(input)
         # puts response.messageresponse = mastermind.execute(input)
         # puts response.message
-
-
       end
+    end
 
 
     #INSTRUCTIONS####################################
