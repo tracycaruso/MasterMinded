@@ -91,10 +91,17 @@ class MastermindTest < Minitest::Test
 
   def test_compares_positions
     #compare_positions(player_input, game_secret)
-    assert_equal "1 in the correct positions", master_mind.compare_positions("RRRB", "BBBB")
-    assert_equal "2 in the correct positions", master_mind.compare_positions("RRBB", "BBBB")
-    assert_equal "3 in the correct positions", master_mind.compare_positions("RBBB", "BBBB")
-    assert_equal "4 in the correct positions", master_mind.compare_positions("BBBB", "BBBB")
+    assert_equal 1, master_mind.compare_positions(['R', 'B', 'B', 'B'], ['R', 'R', 'R', 'R'])
+    assert_equal 2, master_mind.compare_positions(['R', 'R', 'B', 'B'], ['R', 'R', 'R', 'R'])
+    assert_equal 3, master_mind.compare_positions(['R', 'R', 'R', 'B'], ['R', 'R', 'R', 'R'])
+    assert_equal 4, master_mind.compare_positions(['R', 'R', 'R', 'R'], ['R', 'R', 'R', 'R'])
+  end
+
+  def test_compares_colors
+   assert_equal 1, master_mind.compare_colors(['R', 'B', 'B', 'B'], ['R', 'R', 'R', 'R'])
+   assert_equal 2, master_mind.compare_colors(['R', 'R', 'B', 'B'], ['R', 'R', 'R', 'R'])
+   assert_equal 3, master_mind.compare_colors(['R', 'R', 'R', 'B'], ['R', 'R', 'R', 'R'])
+   assert_equal 4, master_mind.compare_colors(['R', 'R', 'R', 'R'], ['R', 'R', 'R', 'R'])
   end
 end
 #
