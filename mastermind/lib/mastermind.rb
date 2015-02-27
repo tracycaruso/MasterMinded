@@ -51,9 +51,4 @@ class Mastermind
     count
   end
 
-
-
 end#class
-
-
-test = Mastermind.new

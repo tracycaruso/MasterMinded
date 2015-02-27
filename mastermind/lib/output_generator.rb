@@ -17,12 +17,9 @@ What's your guess?
     puts "These are detailed instructions"
   end
 
-  def invalid_guess
-    puts "NOT VALID"
-  end
 
   def exit_message
     puts "Do you want to (p)lay again or (q)uit?"
   end
 
-end
+end#class

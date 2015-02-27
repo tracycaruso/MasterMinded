@@ -24,22 +24,26 @@ class Menu
     quit(choice)
   end
 
+  #game logic?
   def play(selection)
     if selection == "P" || selection == "PLAY"
       start_game
     end
   end
 
+  #game logic?
   def start_game
     output_generator.basic_instructions
     secret = mastermind.generate_code
     validate_choice(secret)
   end
 
+  # Own class?
   def validate_choice(secret)
     valid, input = nil
     while input == nil || !valid
       input = input_parser.input
+      quit(input)
       if input == "C" || input == "CHEAT"
         cheat(input, secret)
       else
@@ -49,6 +53,7 @@ class Menu
     evaluate(input, secret)
   end
 
+  #game logic?
   def evaluate(input, secret)
     positions, colors = 0
     positions = mastermind.compare_positions(input.split(""), secret)
@@ -69,9 +74,9 @@ class Menu
   end
 
   def cheat(selection, code)
-      puts code.join.to_s
+    puts code.join.to_s
   end
-end
+end#class
 
 new_game = Menu.new
 new_game.run
