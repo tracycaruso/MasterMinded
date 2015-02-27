@@ -1,6 +1,6 @@
 class OutputGenerator
 
-  def start_message
+  def welcome_message
     puts "==================================================================================="
     puts "Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?
 "
@@ -19,6 +19,10 @@ What's your guess?
 
   def invalid_guess
     puts "NOT VALID"
+  end
+
+  def exit_message
+    puts "Do you want to (p)lay again or (q)uit?"
   end
 
 end

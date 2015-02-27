@@ -1,6 +1,6 @@
 class InputParser
 
-  def player_input
+  def input
     print ">"
     gets.chomp.upcase
   end

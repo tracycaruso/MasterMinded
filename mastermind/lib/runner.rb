@@ -9,6 +9,7 @@
 # left to implement : Timer, Score Count, Break out of evaluation
 
 require './mastermind'
+require './menu'
 
 class Runner
   def run
