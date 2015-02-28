@@ -13,9 +13,7 @@ class PositionMatcher
     @positions_count = (@guess & secret).length
   end
 
-
   def full_match?
     @positions_count == @secret.length
   end
-
 end

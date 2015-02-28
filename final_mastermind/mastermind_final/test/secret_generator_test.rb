@@ -12,8 +12,23 @@ class SecretGeneratorTest < Minitest::Test
     assert Array, secret_generator.generator.class
   end
 
-  def test_in_can_generate_two_random_letters
+  def test_in_can_generate_two_letters
     secret_generator = SecretGenerator.new(2)
     assert 2, secret_generator.generator.length
+  end
+
+  def test_in_can_generate_four_letters
+    secret_generator = SecretGenerator.new(4)
+    assert 4, secret_generator.generator.length
+  end
+
+  def test_in_can_generate_six_letters
+    secret_generator = SecretGenerator.new(6)
+    assert 6, secret_generator.generator.length
+  end
+
+  def test_in_can_generate_ten_letters
+    secret_generator = SecretGenerator.new(10)
+    assert 10, secret_generator.generator.length
   end
 end
