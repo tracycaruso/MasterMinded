@@ -7,7 +7,7 @@ class InputValidator
   end
 
   def less_than_four?
-    @input_length < 4
+    @input_length < 4 
   end
 
   def more_than_four?

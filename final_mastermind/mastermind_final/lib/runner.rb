@@ -10,15 +10,24 @@ class Runner
     until response && response.status == :end_game
       print "> "
       input = gets.chomp.downcase
-      response = mastermind.execute(input)
+      response = mastermind.menu(input)
       puts response.message
-      if response.status == :restart
-        game = Runner.new
-        game.run
-      end  
-    end
-  end
-end
+      if response.status == :play_again
+        print "> "
+        input = gets.chomp.downcase
+        if input == "p"
+          run
+        else
+          response = mastermind.quit
+          puts response.message
+          exit
+        end#if
+      end#if
+    end#until
+
+  end#run
+
+end#runner
 
 game = Runner.new
 game.run
