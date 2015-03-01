@@ -1,13 +1,18 @@
 class Timer
   def start_time
-    Time.now
+    @t1 = Time.now
   end
 
   def end_time
-    Time.new
+    @t2 = Time.now
   end
 
-  def final_time
-    start_time - end_time
+  def diff_in_seconds
+    @t2.sec - @t1.sec
   end
+
+  def diff_in_minutes
+    @t2.min - @t1.min
+  end
+
 end

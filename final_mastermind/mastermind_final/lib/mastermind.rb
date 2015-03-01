@@ -12,6 +12,7 @@ class Mastermind
     @timer = Timer.new
     @guess_counter = GuessCounter.new
     @secret = SecretGenerator.new.generator
+    #@secret = (['b', 'b', 'g', 'b']) for testing purposes
   end
 
   ###MENUOPTIONS##################################################
@@ -30,7 +31,9 @@ class Mastermind
   end
 
   def quit
-    Response.new(:message => "Goodbye!", :status => :end_game)
+    response = Response.new(:message => "Goodbye!", :status => :end_game)
+    puts response.message
+    exit
   end
 
   def instructions
@@ -38,6 +41,7 @@ class Mastermind
   end
 
   def play
+   timer.start_time
     Response.new(:message => "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?", :status => :continue)
   end
 
@@ -46,11 +50,10 @@ class Mastermind
   end
 
   def execute(input)
-    timer.start_time
     validate(input)
   end
 
-  
+
 
 
   ###VALIDATEANSWER##################################################
@@ -78,9 +81,9 @@ class Mastermind
     correct_colors = colors.compare_colors
     if positions.full_match?
       timer.end_time
-      Response.new(:message => "Congratulations! You guessed the sequence '#{secret.join}' in #{guess_counter.guess_number} guesses over #{timer.final_time}.\n Do you want to (p)lay again or (q)uit?", :status => :play_again)
+      Response.new(:message => "Congratulations! You guessed the sequence '#{secret.join}' in #{guess_counter.guess_number} guesses over #{timer.diff_in_minutes} minutes and #{timer.diff_in_seconds} seconds.\n Do you want to (p)lay again or (q)uit?", :status => :play_again)
     else
-      puts guess_counter.guess_number
+      guess_counter.guess_number
       Response.new(:message => "#{input.upcase} has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions. Please guess again.", :status => :continue)
     end
   end#check_match

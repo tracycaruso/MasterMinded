@@ -18,9 +18,7 @@ class Runner
         if input == "p"
           run
         else
-          response = mastermind.quit
-          puts response.message
-          exit
+          mastermind.quit
         end#if
       end#if
     end#until
