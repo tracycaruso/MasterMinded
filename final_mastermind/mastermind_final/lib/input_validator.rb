@@ -7,11 +7,11 @@ class InputValidator
   end
 
   def less_than_four?
-    @input_length < 4 && @input != ["c"]
+    @input_length < 4
   end
 
   def more_than_four?
-    @input_length > 4 && @input != ["c", "h", "e", "a", "t"]
+    @input_length > 4
   end
 
   def valid_answer?

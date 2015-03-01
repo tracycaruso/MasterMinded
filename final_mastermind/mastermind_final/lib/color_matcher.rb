@@ -3,7 +3,7 @@ class ColorMatcher
 
   def initialize(secret, guess)
     @secret = secret
-    @guess = guess
+    @guess = guess.split("")
   end
 
   def compare_colors
@@ -16,7 +16,6 @@ class ColorMatcher
           @color_count += 1
         end
       end
-      puts "count : #{@count}"
     @color_count
   end
 

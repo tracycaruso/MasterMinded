@@ -4,17 +4,15 @@ class Runner
   def run
   puts "Welcome to MASTERMIND\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
 
-    ### IF NOT QUIT
     mastermind = Mastermind.new
     response = nil
 
-    until response && response.status == :won
+    until response && response.status == :end_game
       print "> "
-      input = gets.chomp.downcase.split('')
+      input = gets.chomp.downcase
       response = mastermind.execute(input)
       puts response.message
     end
-    puts "Goodbye!"
   end
 end
 

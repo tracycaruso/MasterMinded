@@ -3,7 +3,7 @@ class PositionMatcher
 
   def initialize(secret, guess)
     @secret = secret
-    @guess = guess
+    @guess = guess.split("")
     @secret_length = @secret.length
   end
 

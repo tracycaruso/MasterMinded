@@ -13,31 +13,28 @@ class Mastermind
   end
 
   def execute(input)
-
-
     input_validator = InputValidator.new(input)
     positions = PositionMatcher.new(secret, input)
     colors = ColorMatcher.new(secret, input)
+    timer = Timer.new
     correct_positions = positions.compare_positions
     correct_colors = colors.compare_colors
 
-    ###MENU OPTIONS
-   if input == ["q", "u", "i", "t"] || input == ["q"]
-     exit
-   elsif input == ["p", "l", "a", "y"] || input == ["p"]
-      Response.new(:message => "I have generated a beginner sequence with four elements made up of: (r)ed,
-(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
-What's your guess?", :status => :continue)
-
-    elsif input == ["i", "n", "s", "t", "r", "u", "c", "t", "i", "o", "n" "s"] || input == ["i"]
+    ###MENUOPTIONS#####################################################
+    if input == "quit" || input == "q"
+      Response.new(:message => "Goodbye!", :status => :end_game)
+    elsif input == "play" || input == "p"
+      Response.new(:message => "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?", :status => :continue)
+    elsif input == "instructions" || input == "i"
       Response.new(:message => "Detailed Instructions", :status => :continue)
 
-    ###RETURN CHEAT CODE
-    elsif input == ["c", "h", "e", "a", "t"] || input == ["c"]
+
+    ###RETURNCHEATCODE#################################################
+    elsif input == "cheat" || input == "c"
       Response.new(:message => secret.join.upcase, :status => :continue)
 
 
-    ###VALIDATE ANSWER
+    ###VALIDATE ANSWER##################################################
     elsif !input_validator.valid_answer?
       if input_validator.more_than_four?
         Response.new(:message => "too long", :status => :continue)
@@ -45,12 +42,11 @@ What's your guess?", :status => :continue)
         Response.new(:message => "too short", :status => :continue)
       end
 
-
-    ###CHECK ANSWER
+    ###CHECK ANSWER####################################################
     elsif positions.full_match?
-        Response.new(:message => "You Win!", :status => :won)
+        Response.new(:message => "Congratulations! You guessed the sequence 'GRRB' in 8 guesses over 4 minutes, 22 seconds.\n Do you want to (p)lay again or (q)uit?", :status => :continue)
     else
-        Response.new(:message => "#{input.join.upcase} has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions. Please guess again.", :status => :continue)
+        Response.new(:message => "#{input.upcase} has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions. Please guess again.", :status => :continue)
     end
   end
 
