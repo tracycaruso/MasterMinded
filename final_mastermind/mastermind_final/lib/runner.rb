@@ -12,6 +12,10 @@ class Runner
       input = gets.chomp.downcase
       response = mastermind.execute(input)
       puts response.message
+      if response.status == :restart
+        game = Runner.new
+        game.run
+      end  
     end
   end
 end
