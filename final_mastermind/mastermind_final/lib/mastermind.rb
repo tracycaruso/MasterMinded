@@ -5,10 +5,11 @@ require_relative 'color_matcher'
 require_relative 'secret_generator'
 
 class Mastermind
-  attr_accessor :secret
+  attr_reader :secret
   def initialize
     code = SecretGenerator.new
-    @secret = code.generator
+    #@secret = code.generator
+    @secret = ["b", "b", "g", "b"]
   end
 
   def execute(input)
@@ -20,9 +21,24 @@ class Mastermind
     correct_positions = positions.compare_positions
     correct_colors = colors.compare_colors
 
+    ###MENU OPTIONS
+   if input == ["q", "u", "i", "t"] || input == ["q"]
+     exit
+   elsif input == ["p", "l", "a", "y"] || input == ["p"]
+      Response.new(:message => "I have generated a beginner sequence with four elements made up of: (r)ed,
+(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
+What's your guess?", :status => :continue)
+
+    elsif input == ["i", "n", "s", "t", "r", "u", "c", "t", "i", "o", "n" "s"] || input == ["i"]
+      Response.new(:message => "Detailed Instructions", :status => :continue)
+
+    ###RETURN CHEAT CODE
+    elsif input == ["c", "h", "e", "a", "t"] || input == ["c"]
+      Response.new(:message => secret.join.upcase, :status => :continue)
+
 
     ###VALIDATE ANSWER
-    if !input_validator.valid_answer?
+    elsif !input_validator.valid_answer?
       if input_validator.more_than_four?
         Response.new(:message => "too long", :status => :continue)
       else input_validator.less_than_four?
@@ -30,16 +46,11 @@ class Mastermind
       end
 
 
-    ###RETURN CHEAT CODE
-    elsif input == ["c", "h", "e", "a", "t"] || input == ["c"]
-      Response.new(:message => secret.join.upcase, :status => :continue)
-
-
     ###CHECK ANSWER
     elsif positions.full_match?
         Response.new(:message => "You Win!", :status => :won)
     else
-        Response.new(:message => "#{input.join.upcase} has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions", :status => :continue)
+        Response.new(:message => "#{input.join.upcase} has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions. Please guess again.", :status => :continue)
     end
   end
 

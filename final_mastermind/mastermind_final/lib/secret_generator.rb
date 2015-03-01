@@ -7,7 +7,7 @@ class SecretGenerator
   end
 
   def generator
-    @secret.sample(@secret_lengt)
+    @secret.sample(@secret_length)
   end
 
 end
