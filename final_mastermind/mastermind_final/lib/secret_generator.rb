@@ -3,19 +3,30 @@ class SecretGenerator
 
   def initialize(secret_length=4)
     @secret_length = secret_length
-    @secret = ["r", "b", "y", "g" ]
-  end
-
-  def generator
-
-    if secret_length == 6
-      @secret = ["r", "b", "y", "g", "o", "o" ]
-    elsif secret_length == 8
-      @secret = ["r", "b", "y", "g", "o", "p", "r", "y"]
     end
 
-    @secret.sample(@secret_length)
+  def generator
+    secret_result = []
+    if secret_length == 4
+      @secret =  ["r", "b", "y", "g"]
+        secret_length.times do
+          secret_result << @secret.sample
+      end
+    elsif secret_length == 6
+      @secret =  ["r", "b", "y", "g", "o", "r"]
+        secret_length.times do
+          secret_result << @secret.sample
+        end
 
-  end
+    elsif secret_length == 8
+      @secret =  ["r", "b", "y", "g", "o", "r", "p", "f"]
+        secret_length.times do
+         secret_result << @secret.sample
+        end
+     end
+      secret_result
+  end#generator
+
+
 
 end

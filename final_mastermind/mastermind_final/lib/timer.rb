@@ -7,12 +7,11 @@ class Timer
     @t2 = Time.now
   end
 
-  def diff_in_seconds
-    @t2.sec - @t1.sec
-  end
-
-  def diff_in_minutes
-    @t2.min - @t1.min
+  def time_diff
+    diff = @t2 - @t1
+    minutes = (diff/60).to_i
+    seconds = ((( diff/60 ) - minutes) * 60).to_i
+    time = [minutes,seconds]
   end
 
 end

@@ -1,7 +1,7 @@
 class InputValidator
   attr_reader :input, :input_length, :level
 
-  def initialize(input, level=4)
+  def initialize(input, level)
     @input = input
     @input_length = @input.length
     @level = level
