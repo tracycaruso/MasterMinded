@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 require '../lib/mastermind'
+require '../lib/start_title'
+
 
 class Runner
   def run
@@ -7,6 +9,8 @@ class Runner
 
     mastermind = Mastermind.new
     response = nil
+    start = StartTitle.new
+    
 
     until response && response.status == :end_game
       print "> "
