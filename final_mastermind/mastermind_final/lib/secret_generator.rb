@@ -7,7 +7,15 @@ class SecretGenerator
   end
 
   def generator
+
+    if secret_length == 6
+      @secret = ["r", "b", "y", "g", "o", "o" ]
+    elsif secret_length == 8
+      @secret = ["r", "b", "y", "g", "o", "p", "r", "y"]
+    end
+
     @secret.sample(@secret_length)
+
   end
 
 end

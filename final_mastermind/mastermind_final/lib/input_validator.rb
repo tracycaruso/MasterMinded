@@ -1,21 +1,22 @@
 class InputValidator
-  attr_reader :input
+  attr_reader :input, :input_length, :level
 
-  def initialize(input)
+  def initialize(input, level=4)
     @input = input
-    @input_length = input.length
+    @input_length = @input.length
+    @level = level
   end
 
-  def less_than_four?
-    @input_length < 4 
+  def less_than_length?
+    input_length < level
   end
 
-  def more_than_four?
-    @input_length > 4
+  def more_than_length?
+    input_length > level
   end
 
   def valid_answer?
-    !less_than_four? && !more_than_four?
+    !less_than_length? && !more_than_length?
   end
 
 end

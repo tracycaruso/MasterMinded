@@ -7,27 +7,71 @@ require_relative 'timer'
 require_relative 'guess_counter'
 
 class Mastermind
-  attr_reader :timer, :guess_counter, :secret
+  attr_reader :timer, :guess_counter, :secret, :level
   def initialize
     @timer = Timer.new
     @guess_counter = GuessCounter.new
-    @secret = SecretGenerator.new.generator
     #@secret = (['b', 'b', 'g', 'b']) for testing purposes
   end
 
-  ###MENUOPTIONS##################################################
+  ###MENU_OPTIONS##################################################
   def menu(input)
-    if input == "quit" || input == "q"
+    case input
+    when "quit", "q"
       quit
-    elsif input == "instructions" || input == "i"
+    when "instructions", "i"
       instructions
-    elsif input == "play" || input == "p"
-      play
-    elsif input == "cheat" || input == "c"
+    when "play", "p"
+      timer.start_time
+      difficulty
+    when "easy", "e"
+      @level = 4
+      @secret = SecretGenerator.new(4).generator
+      play_easy
+    when "medium", "m"
+      @level = 6
+      @secret = SecretGenerator.new(6).generator
+      play_medium
+    when "hard", "h"
+      @level = 8
+      @secret = SecretGenerator.new(8).generator
+      play_hard
+    when "cheat", "c"
       cheat
     else
-      execute(input)
+      execute(input, @level)
     end
+  end
+
+
+
+  ###MENU_RESPONSES#########################################################################################
+  def instructions
+    Response.new(:message => "Detailed Instructions", :status => :continue)
+  end
+
+  def difficulty
+    Response.new(:message => "What level of difficulty would you like to play? (e)asy, (m)edium or (h)ard", :status => :continue)
+  end
+
+  def play_easy
+    Response.new(:message => "I have generated a beginner sequence with four elements made up of:\n(r)ed, (g)reen, (b)lue, and (y)ellow. \nUse (q)uit at any time to end the game.\nWhat's your guess?", :status => :continue)
+  end
+
+  def play_medium
+    Response.new(:message => "I have generated a medium sequence with six elements made up of:\n(r)ed, (g)reen, (b)lue, and (y)ellow, (o)range. \nUse (q)uit at any time to end the game.\nWhat's your guess?", :status => :continue)
+  end
+
+  def play_hard
+    Response.new(:message => "I have generated a hard sequence with eight elements made up of:\n(r)ed, (g)reen, (b)lue, and (y)ellow, (o)range, (p)urple. \nUse (q)uit at any time to end the game.\nWhat's your guess?", :status => :continue)
+  end
+
+  def cheat
+    Response.new(:message => secret.join.upcase, :status => :continue)
+  end
+
+  def execute(input, level)
+    validate(input, level)
   end
 
   def quit
@@ -36,33 +80,14 @@ class Mastermind
     exit
   end
 
-  def instructions
-    Response.new(:message => "Detailed Instructions", :status => :continue)
-  end
 
-  def play
-   timer.start_time
-    Response.new(:message => "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?", :status => :continue)
-  end
-
-  def cheat
-    Response.new(:message => secret.join.upcase, :status => :continue)
-  end
-
-  def execute(input)
-    validate(input)
-  end
-
-
-
-
-  ###VALIDATEANSWER##################################################
-  def validate(input)
-    input_validator = InputValidator.new(input)
+  ###VALIDATE_ANSWER##################################################
+  def validate(input, level)
+    input_validator = InputValidator.new(input, level)
     if !input_validator.valid_answer?
-      if input_validator.more_than_four?
+      if input_validator.more_than_length?
         Response.new(:message => "too long", :status => :continue)
-      else input_validator.less_than_four?
+      else input_validator.less_than_length?
         Response.new(:message => "too short", :status => :continue)
       end
     else
@@ -73,7 +98,7 @@ class Mastermind
 
 
 
-  ###CHECK ANSWER####################################################
+  ###CHECK_ANSWER####################################################
   def check_match(input)
     positions = PositionMatcher.new(secret, input)
     colors = ColorMatcher.new(secret, input)
@@ -81,7 +106,7 @@ class Mastermind
     correct_colors = colors.compare_colors
     if positions.full_match?
       timer.end_time
-      Response.new(:message => "Congratulations! You guessed the sequence '#{secret.join}' in #{guess_counter.guess_number} guesses over #{timer.diff_in_minutes} minutes and #{timer.diff_in_seconds} seconds.\n Do you want to (p)lay again or (q)uit?", :status => :play_again)
+      Response.new(:message => "Congratulations! You guessed the sequence '#{secret.join}' in #{guess_counter.guess_number} guesses over #{timer.diff_in_minutes} minutes and #{timer.diff_in_seconds} seconds.\nDo you want to (p)lay again or (q)uit?", :status => :play_again)
     else
       guess_counter.guess_number
       Response.new(:message => "#{input.upcase} has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions. Please guess again.", :status => :continue)
